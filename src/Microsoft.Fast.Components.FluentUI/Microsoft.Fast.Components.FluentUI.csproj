@@ -17,7 +17,6 @@
     <PackageVersion>0.0.2</PackageVersion>
     <ReleaseVersion>0.0.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
-    
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
