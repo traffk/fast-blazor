@@ -68,13 +68,18 @@ steps:
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 - task: NuGetCommand@2
   displayName: Publish to GitHub
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'GitHubServiceConnect'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'b664c239-0000-4fa9-92c3-95b7f27d846a/366033a2-7aa6-4091-8ef1-856293cf5a9d'
 
 - task: NuGetCommand@2
   displayName: Publish to NuGet
