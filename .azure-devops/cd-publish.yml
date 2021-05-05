@@ -67,13 +67,14 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
-
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'github.com_Ibrahimmaga'
-    repositoryName: '$(Build.Repository.Name)'
+    repositoryName: 'https://github.com/microsoft/fast-blazor'
     action: 'create'
     target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    tagPattern: 'V*0.0.4'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
 
