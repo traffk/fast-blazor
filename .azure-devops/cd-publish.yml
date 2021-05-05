@@ -67,17 +67,20 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
+    
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'github.com_Ibrahimmaga'
     repositoryName: 'https://github.com/microsoft/fast-blazor'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tagSource: 'gitTag'
-    tagPattern: 'V*0.0.4'
+    tagSource: 'userSpecifiedTag'
+    tag: 'v'
+    title: '$(v0.0.4)'
+    assets: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-
+   
 - task: NuGetCommand@2
   displayName: Publish to NuGet
   inputs:
