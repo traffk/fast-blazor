@@ -67,11 +67,16 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
-- task: DotNetCoreCLI@2
-  displayName: Publish to Github
+
+- task: GitHubRelease@1
   inputs:
-    command: 'custom'
-    custom: 'dotnet nuget push $(Build.ArtifactStagingDirectory)\*.nupkg --api-key GITHUB_PAT --source "github"'
+    gitHubConnection: 'github.com_Ibrahimmaga'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
 
 - task: NuGetCommand@2
   displayName: Publish to NuGet
