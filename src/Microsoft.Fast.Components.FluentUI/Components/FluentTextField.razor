@@ -13,6 +13,10 @@
                    required="@Required"
                    placeholder="@Placeholder"
                    @attributes="AdditionalAttributes">
+    @if (Label != null || AudioLabel != null)
+    { 
+    <span aria-label="@(AudioLabel??Label)">@(Label??AudioLabel)</span>
+    }
     @ChildContent
 </fluent-text-field>
 @code{
@@ -37,6 +41,10 @@
     [Parameter] public int? MaxLength { get; set; }
 
     [Parameter] public bool? Spellcheck { get; set; }
+
+    [Parameter] public string Label { get; set; }
+
+    [Parameter] public string AudioLabel { get; set; }
 
     //Pattern
     //List

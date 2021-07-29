@@ -1,7 +1,17 @@
-<fluent-listbox @attributes="AdditionalAttributes">@ChildContent</fluent-listbox>
+    <div style="display: inline-flex; flex-direction: column">
+        @if (Label != null || AudioLabel != null)
+        {
+            <span aria-label="@(AudioLabel??Label)">@(Label??AudioLabel)</span>
+        }
+        <fluent-listbox @attributes="AdditionalAttributes">@ChildContent</fluent-listbox>
+    </div>
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+    [Parameter] public string Label { get; set; }
+
+    [Parameter] public string AudioLabel { get; set; }
 }

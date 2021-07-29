@@ -25,6 +25,8 @@ namespace Microsoft.Fast.Components.FluentUI
 
         [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
+        [Parameter] public Func<TValue> ValueGet { get; set; }
+
         [Parameter] public Expression<Func<TValue>> ValueExpression { get; set; }
 
         [Parameter] public string DisplayName { get; set; }
@@ -177,6 +179,15 @@ namespace Microsoft.Fast.Components.FluentUI
 
             // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
             return base.SetParametersAsync(ParameterView.Empty);
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+            if (ValueGet != null)
+            {
+                Value = ValueGet();
+            }
         }
 
         private void OnValidateStateChanged(object sender, ValidationStateChangedEventArgs eventArgs)
